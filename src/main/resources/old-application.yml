@@ -1,0 +1,51 @@
+eureka:
+  client:
+    eureka-service-url-poll-interval-seconds: 10
+    fetchRegistry: true
+    initial-instance-info-replication-interval-seconds: 1
+    registerWithEureka: false
+    registry-fetch-interval-seconds: 5
+    serviceUrl:
+      defaultZone: ${EUREKA_URI:http://localhost:34340/eureka}
+  instance:
+    hostname: ${spring.application.name}
+    nonSecurePortEnabled: false
+    preferIpAddress: true
+    securePort: ${server.port}
+    securePortEnabled: true
+#management:
+#    endpoints:
+#        web:
+#            exposure:
+#                include: '*'
+ribbon:
+  eureka:
+    enabled: true
+#    secure-ports: ${server.port}
+server:
+  port: 34341
+  ssl:
+    enabled: true
+    key-password: ssssss
+    key-store: classpath:server.jks
+    key-store-password: ssssss
+    key-store-type: JKS
+    trust-store: classpath:server.jks
+    trust-store-password: ssssss
+    trust-store-type: JKS
+spring:
+  application:
+    name: zuul
+zuul:
+  host:
+    connect-timeout-millis: 300000
+  ignored-services: '*'
+  routes:
+    google:
+      path: /google/**
+      url: https://www.google.com/
+    lab3:
+      path: /lab3springapplication/**
+      serviceId: lab3springapplication
+  set-content-length: true
+  sslHostnameValidationEnabled: false
